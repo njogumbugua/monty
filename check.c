@@ -22,7 +22,7 @@ void check_num_args(int argc)
  * Return: name of program
  */
 
-char *get_name(char *path)
+char *get_name(const char *path)
 {
 	int i, start, end, len;
 	char *name;
@@ -54,7 +54,7 @@ char *get_name(char *path)
  * Return: None
  */
 
-void check_file_status(FILE *fd, char *file_path)
+void check_file_status(FILE *fd, const char *file_path)
 {
 	char *file_name;
 

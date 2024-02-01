@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdlib.h>
 
 /**
  * main - entry point
@@ -10,33 +9,10 @@
 
 int main(int argc, char *argv[])
 {
-	FILE *fd;
-	unsigned int line_number;
-	char *line;
-	size_t len;
-	ssize_t nread;
-  len = 0;
-  line = NULL;
-  char **tokens;
-
-	line_number = 0;
 	check_num_args(argc);
-	fd = fopen(argv[1], "r");
-	check_file_status(fd, argv[1]);
-  nread = getline(&line, &len, fd);
 
-	while((nread != -1))
-	{
-		line_number++;
+  char *filename = argv[1];
+  printFileContent(filename);
 
-		/* Tokenization */
-    tokens = tokenize_commands(line);
-
-		/* Command valid? */
-		/* argument valid? */
-
-		printf("%p", tokens);
-    free(tokens);
-	}
 	return (0);
 }
