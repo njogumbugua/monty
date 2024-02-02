@@ -31,19 +31,19 @@ int main(int argc, char *argv[])
 	while ((nread = getline(&line, &len, fd)) != -1)
 	{
 		line_number++;
-		/* Tokenization */
+		//tokenization
 		token = tokenization(line, fd);
-		/* Command valid? */
+		//Command valid?
 		st = search_command(token[0], op, LEN_OP);
 		if (st == -1)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token[0]);
 			exit_free(token, line, fd);
 		}
-		/* argument valid? */
+		//argument valid?
 		free_2d(token);
 	}
-	fclose(fd);
 	free(line);
+	fclose(fd);
 	return (0);
 }

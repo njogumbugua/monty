@@ -24,7 +24,6 @@ void free_2d(char **token)
 	i = 0;
 	while (token[i] != NULL)
 	{
-		printf("%d", i);
 		free(token[i]);
 		i++;
 	}
