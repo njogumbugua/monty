@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * check_num_arg - check number of arguments
+ * check_num_args - check number of arguments
  * @argc: number of arguments
  * Return: None
  */
@@ -29,20 +29,17 @@ char *get_name(char *path)
 
 	i = 0, start = 0, end = 0;
 
-	while(path[i] != '\0')
+	while (path[i] != '\0')
 	{
 		if (path[i] == '/')
-			start = i+1;
+			start = i + 1;
 		end++;
 		i++;
 	}
 	len = end - start + 1;
 	name = malloc(sizeof(char) * len);
 	if (name == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		malloc_error();
 	strncpy(name, path + start, len);
 
 	return (name);
@@ -51,6 +48,7 @@ char *get_name(char *path)
 /**
  * check_file_status - check file status after open
  * @fd: file descriptor
+ * @file_path: file path to extract file name
  * Return: None
  */
 
@@ -65,4 +63,5 @@ void check_file_status(FILE *fd, char *file_path)
 		free(file_name);
 		exit(EXIT_FAILURE);
 	}
+	free(file_name);
 }
