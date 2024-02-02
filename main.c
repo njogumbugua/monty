@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 		/* argument valid? */
 		free_2d(token);
 	}
-	free_2d(token);
+	fclose(fd);
 	free(line);
 	return (0);
 }
