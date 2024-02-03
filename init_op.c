@@ -27,10 +27,10 @@ void init_op(instruction_t *op)
 }
 
 /**
-  * push - adds an elements to top of stack
-  * @stack: stack top
-  * @line_number: script line being execution
-  */
+ * push - adds an element to top of stack
+ * @stack: stack top
+ * @line_number: script line being execution
+ */
 void push(stack_t **stack, unsigned int line_number)
 {
   int value;
@@ -45,7 +45,7 @@ void push(stack_t **stack, unsigned int line_number)
     exit(EXIT_FAILURE);
   }
 
-  if (!value)
+  if (!value_str)
   {
     fprintf(stderr, "L%d: usage: integer\n", line_number);
   }
@@ -60,17 +60,26 @@ void push(stack_t **stack, unsigned int line_number)
   *stack = new_node;
 }
 
+/**
+ * pall - Print elements in stack
+ * @stack: Double linked list
+ * @line_number: Script line being executed
+ */
 void pall(stack_t **stack, unsigned int line_number)
 {
     stack_t *current = *stack;
-    while (current)
+    while (current != NULL)
     {
         printf("%d\n", current->n);
         current = current->next;
     }
 }
 
-
+/**
+ * pint - Print last node
+ * @stack: Double linked list
+ * @line_number: Script line being executed 
+ */
 void pint(stack_t **stack, unsigned int line_number)
 {
   if (*stack)
@@ -83,28 +92,38 @@ void pint(stack_t **stack, unsigned int line_number)
     exit(EXIT_FAILURE);
   }
 }
-
+/**
+ * pop - Delete first element 
+ * @stack: Double linked list
+ * @line_number: Script line to be executed
+ */
 void pop(stack_t **stack, unsigned int line_number)
 {
+  stack_t *top;
+  top = *stack;
   if (!*stack)
   {
     fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
     exit(EXIT_FAILURE);
   }
 
-    // Remove the top node from the stack
-    stack_t *top = *stack;
+    top = *stack;
     *stack = top->next;
 
-    // Free the memory of the removed node
     free(top);
 }
 
+/**
+ * swap - Delete first element
+ * @stack: Double linked list
+ * @line_number: Script line to be executed 
+ */
 void swap(stack_t **stack, unsigned int line_number)
 {
+  int temp;
   if (*stack && (*stack)->next)
   {
-    int temp = (*stack)->n;
+    temp = (*stack)->n;
     (*stack)->n = (*stack)->next->n;
     (*stack)->next->n = temp;
   }
@@ -113,10 +132,13 @@ void swap(stack_t **stack, unsigned int line_number)
     fprintf(stderr, "L%u: can't swap, stack has less than two elements\n", line_number);
     exit(EXIT_FAILURE);
   }
-
-  printf("swap\n");
 }
 
+/**
+ * add - add the top two elements of the stack
+ * @stack: Double linked list
+ * @line_number: Script line to be executed
+ */
 void add(stack_t **stack, unsigned int line_number)
 {
   if (*stack && (*stack)->next)
@@ -131,6 +153,11 @@ void add(stack_t **stack, unsigned int line_number)
   }
 }
 
+/**
+ * nop - do nothing
+ * @stack: Double linked lists
+ * @line_number: Script line to be executed
+ */
 void nop(stack_t **stack, unsigned int line_number)
 {
   (void)stack;
