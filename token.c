@@ -66,10 +66,11 @@ int search_command(char *command, instruction_t *op, const int len)
 	for (i = 0; i < len; i++)
 	{
 		if (strcmp(command, op[i].opcode) == 0)
+      init_op(op);
 			return (1);
 		if (strcmp(command, "") == 0)
+      init_op(op);
 			return (1);
 	}
-
 	return (-1);
 }

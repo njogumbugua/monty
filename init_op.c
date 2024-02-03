@@ -1,4 +1,5 @@
 #include "main.h"
+#include <string.h>
 
 void init_op(instruction_t *op)
 {
@@ -25,54 +26,50 @@ void init_op(instruction_t *op)
 
 }
 
+/**
+  * push - adds an elements to top of stack
+  * @stack: stack top
+  * @line_number: script line being execution
+  */
 void push(stack_t **stack, unsigned int line_number)
 {
-    // Extract the value to be pushed from the line and convert it to an integer
-    char *value_str = strtok(NULL, " \n\t");
-    if (!value_str)
-    {
-        fprintf(stderr, "L%u: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+  int value;
+  char *value_str; 
+  value_str = strtok(NULL, "\n\t");
+  stack_t *new_node; 
+  new_node = malloc(sizeof(stack_t));
+  value = atoi(value_str);
+  if (!new_node)
+  {
+    perror("Error allocating memory");
+    exit(EXIT_FAILURE);
+  }
 
-    int value = atoi(value_str);
+  if (!value)
+  {
+    fprintf(stderr, "L%d: usage: integer\n", line_number);
+  }
+  new_node->prev = NULL;
+  new_node->n = value;
+  new_node->next = *stack;
 
-    // Allocate memory for a new stack node
-    stack_t *new_node = malloc(sizeof(stack_t));
-    if (!new_node)
-    {
-        perror("Error allocating memory");
-        exit(EXIT_FAILURE);
-    }
-
-    // Initialize the new node
-    new_node->n = value;
-    new_node->prev = NULL;
-    new_node->next = *stack;
-
-    // Update the previous pointer of the current top node if it exists
-    if (*stack)
-    {
-        (*stack)->prev = new_node;
-    }
-
-    // Update the stack pointer to the new node
-    *stack = new_node;
-
-  printf("Executing push at line %u\n", line_number);
+  if (*stack)
+  {
+    (*stack)->prev = new_node;
+  }
+  *stack = new_node;
 }
 
 void pall(stack_t **stack, unsigned int line_number)
 {
-  // Implement pall operation here
-  stack_t *current = *stack;
-    while (current != NULL)
+    stack_t *current = *stack;
+    while (current)
     {
-      printf("%d\n", current->n);
-      current = current->next;
+        printf("%d\n", current->n);
+        current = current->next;
     }
-  printf("Executing pall at line %u\n", line_number);
 }
+
 
 void pint(stack_t **stack, unsigned int line_number)
 {
@@ -85,7 +82,6 @@ void pint(stack_t **stack, unsigned int line_number)
     fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
     exit(EXIT_FAILURE);
   }
-  printf("Executing pint at line %u\n", line_number);
 }
 
 void pop(stack_t **stack, unsigned int line_number)
@@ -102,35 +98,42 @@ void pop(stack_t **stack, unsigned int line_number)
 
     // Free the memory of the removed node
     free(top);
-
-  printf("Executing pop at line %u\n", line_number);
 }
 
 void swap(stack_t **stack, unsigned int line_number)
 {
   if (*stack && (*stack)->next)
   {
-      int temp = (*stack)->n;
-      (*stack)->n = (*stack)->next->n;
-      (*stack)->next->n = temp;
+    int temp = (*stack)->n;
+    (*stack)->n = (*stack)->next->n;
+    (*stack)->next->n = temp;
   }
   else
   {
-      fprintf(stderr, "L%u: can't swap, stack has less than two elements\n", line_number);
-      exit(EXIT_FAILURE);
+    fprintf(stderr, "L%u: can't swap, stack has less than two elements\n", line_number);
+    exit(EXIT_FAILURE);
   }
 
-    printf("swap\n");
+  printf("swap\n");
 }
 
 void add(stack_t **stack, unsigned int line_number)
 {
-  // Implement add operation here
-  printf("Executing add at line %u\n", line_number);
+  if (*stack && (*stack)->next)
+  {
+    (*stack)->next->n += (*stack)->n;
+    pop(stack, line_number);
+  }
+  else
+  {
+    fprintf(stderr, "L%u: can't add, stack has less than two elements\n", line_number);
+    exit(EXIT_FAILURE);
+  }
 }
 
 void nop(stack_t **stack, unsigned int line_number)
 {
-  // Implement nop operation here
-  printf("Executing nop at line %u\n", line_number);
+  (void)stack;
+  (void)line_number;
+   printf("nop\n");
 }
