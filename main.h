@@ -58,4 +58,7 @@ void exit_free(char **token, char *line, FILE *fd);
 
 void init_op(instruction_t *op);
 
+/* interpret bytecode */
+
+
 #endif
