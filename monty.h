@@ -53,7 +53,7 @@ int search_command(char *command, instruction_t *op, const int len);
 
 void malloc_error(void);
 void free_2d(char **token);
-void exit_free(char **token, char *line, FILE *fd);
+void exit_free(char **token, FILE *fd);
 
 /* opcode */
 

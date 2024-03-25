@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 #include "global.h"
 
 /**
@@ -13,16 +13,13 @@ int main(int argc, char *argv[])
 {
 	FILE *fd;
 	unsigned int line_number;
-	char *line;
-	size_t len;
-	ssize_t nread;
+	char *nread;
+	char str[100];
 	const int LEN_OP = 11;
 	int st;
 	stack_t *stack;
 	instruction_t op[11];
 
-	line = NULL;
-	len = 0;
 	init_op(op);
 	check_num_args(argc);
 	fd = fopen(argv[1], "r");
@@ -30,21 +27,20 @@ int main(int argc, char *argv[])
 	line_number = 0;
 	stack = NULL;
 
-	while ((nread = getline(&line, &len, fd)) != -1)
+	while ((nread = fgets(str, 100, fd)) != NULL)
 	{
 		line_number++;
-		tokenization(line, fd);
+		tokenization(str, fd);
 		st = search_command(token[0], op, LEN_OP);
 		if (st == -1)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token[0]);
-			exit_free(token, line, fd);
+			exit_free(token, fd);
 		}
 
 		op[st].f(&stack, line_number);
 		free_2d(token);
 	}
-	free(line);
 	fclose(fd);
 	return (0);
 }

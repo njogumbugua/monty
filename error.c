@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 #include "global.h"
 
 /**
@@ -39,10 +39,9 @@ void free_2d(char **token)
  * Return: None
  */
 
-void exit_free(char **token, char *line, FILE *fd)
+void exit_free(char **token, FILE *fd)
 {
 	free_2d(token);
-	free(line);
 	fclose(fd);
 	exit(EXIT_FAILURE);
 }
