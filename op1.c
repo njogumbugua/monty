@@ -13,6 +13,12 @@ void push(stack_t **stack, unsigned int line_number)
 	char *value_str;
 	stack_t *new_node;
 
+	if (token[1] == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+
+	}
 	value_str = token[1];
 	new_node = malloc(sizeof(stack_t));
 	value = atoi(value_str);
@@ -24,7 +30,8 @@ void push(stack_t **stack, unsigned int line_number)
 
 	if (!value_str)
 	{
-		fprintf(stderr, "L%d: usage: integer\n", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
 	}
 	new_node->prev = NULL;
 	new_node->n = value;

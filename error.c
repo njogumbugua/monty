@@ -45,3 +45,21 @@ void exit_free(char **token, FILE *fd)
 	fclose(fd);
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * free_stack - free stack of linked list
+ * @stack: head of the stack
+ * Return: None
+ */
+
+void free_stack(stack_t **stack)
+{
+	stack_t *temp;
+
+	while ((*stack) != NULL)
+	{
+		temp = *stack;
+		*stack = (*stack)->next;
+		free(temp);
+	}
+}

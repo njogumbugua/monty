@@ -37,10 +37,10 @@ int main(int argc, char *argv[])
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token[0]);
 			exit_free(token, fd);
 		}
-
 		op[st].f(&stack, line_number);
 		free_2d(token);
 	}
+	free_stack(&stack);
 	fclose(fd);
 	return (0);
 }
