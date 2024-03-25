@@ -1,5 +1,11 @@
 #include "main.h"
-#include <string.h>
+#include "global.h"
+
+/**
+ * init_op - initialize op variable
+ * @op: operation variable store functions of monty language
+ * Return: None
+ */
 
 void init_op(instruction_t *op)
 {
@@ -10,7 +16,7 @@ void init_op(instruction_t *op)
 	op[1].f = pall;
 
 	op[2].opcode = "pint";
-	op[2].f= pint;
+	op[2].f = pint;
 
 	op[3].opcode = "pop";
 	op[3].f = pop;
@@ -24,143 +30,16 @@ void init_op(instruction_t *op)
 	op[6].opcode = "nop";
 	op[6].f = nop;
 
-}
+	op[7].opcode = "sub";
+	op[7].f = sub;
 
-/**
- * push - adds an element to top of stack
- * @stack: stack top
- * @line_number: script line being execution
- */
-void push(stack_t **stack, unsigned int line_number)
-{
-  int value;
-  char *value_str; 
-  value_str = strtok(NULL, "\n\t");
-  stack_t *new_node; 
-  new_node = malloc(sizeof(stack_t));
-  value = atoi(value_str);
-  if (!new_node)
-  {
-    perror("Error allocating memory");
-    exit(EXIT_FAILURE);
-  }
+	op[8].opcode = "div";
+	op[8].f = _div;
 
-  if (!value_str)
-  {
-    fprintf(stderr, "L%d: usage: integer\n", line_number);
-  }
-  new_node->prev = NULL;
-  new_node->n = value;
-  new_node->next = *stack;
+	op[9].opcode = "mul";
+	op[9].f = mul;
 
-  if (*stack)
-  {
-    (*stack)->prev = new_node;
-  }
-  *stack = new_node;
-}
+	op[10].opcode = "mod";
+	op[10].f = mod;
 
-/**
- * pall - Print elements in stack
- * @stack: Double linked list
- * @line_number: Script line being executed
- */
-void pall(stack_t **stack, unsigned int line_number)
-{
-    stack_t *current = *stack;
-    while (current != NULL)
-    {
-        printf("%d\n", current->n);
-        current = current->next;
-    }
-}
-
-/**
- * pint - Print last node
- * @stack: Double linked list
- * @line_number: Script line being executed 
- */
-void pint(stack_t **stack, unsigned int line_number)
-{
-  if (*stack)
-  {
-    printf("%d\n", (*stack)->n);
-  }
-  else
-  {
-    fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-    exit(EXIT_FAILURE);
-  }
-}
-/**
- * pop - Delete first element 
- * @stack: Double linked list
- * @line_number: Script line to be executed
- */
-void pop(stack_t **stack, unsigned int line_number)
-{
-  stack_t *top;
-  top = *stack;
-  if (!*stack)
-  {
-    fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-    exit(EXIT_FAILURE);
-  }
-
-    top = *stack;
-    *stack = top->next;
-
-    free(top);
-}
-
-/**
- * swap - Delete first element
- * @stack: Double linked list
- * @line_number: Script line to be executed 
- */
-void swap(stack_t **stack, unsigned int line_number)
-{
-  int temp;
-  if (*stack && (*stack)->next)
-  {
-    temp = (*stack)->n;
-    (*stack)->n = (*stack)->next->n;
-    (*stack)->next->n = temp;
-  }
-  else
-  {
-    fprintf(stderr, "L%u: can't swap, stack has less than two elements\n", line_number);
-    exit(EXIT_FAILURE);
-  }
-}
-
-/**
- * add - add the top two elements of the stack
- * @stack: Double linked list
- * @line_number: Script line to be executed
- */
-void add(stack_t **stack, unsigned int line_number)
-{
-  if (*stack && (*stack)->next)
-  {
-    (*stack)->next->n += (*stack)->n;
-    pop(stack, line_number);
-  }
-  else
-  {
-    fprintf(stderr, "L%u: can't add, stack has less than two elements\n", line_number);
-    exit(EXIT_FAILURE);
-  }
-}
-
-/**
- * nop - do nothing
- * @stack: Double linked lists
- * @line_number: Script line to be executed
- */
-void nop(stack_t **stack, unsigned int line_number)
-{
-  (void)stack;
-  (void)line_number;
-   printf("nop\n");
 }

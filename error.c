@@ -1,4 +1,5 @@
 #include "main.h"
+#include "global.h"
 
 /**
  * malloc_error - cannot allocate memory

@@ -41,6 +41,7 @@ typedef struct instruction_s
 
 /* main functions */
 
+void initGlobal(int count);
 void check_num_args(int argc);
 void check_file_status(FILE *fd, char *file_name);
 char *get_name(char *path);
@@ -66,5 +67,9 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void _div(stack_t **stack, unsigned int line_number);
+void mul(stack_t **stack, unsigned int line_number);
+void mod(stack_t **stack, unsigned int line_number);
 
 #endif

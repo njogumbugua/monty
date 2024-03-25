@@ -1,4 +1,5 @@
 #include "main.h"
+#include "global.h"
 
 /**
  * main - entry point
@@ -7,6 +8,7 @@
  * Return: always 0 (Success)
  */
 
+
 int main(int argc, char *argv[])
 {
 	FILE *fd;
@@ -14,11 +16,10 @@ int main(int argc, char *argv[])
 	char *line;
 	size_t len;
 	ssize_t nread;
-	char **token;
-	const int LEN_OP = 7;
+	const int LEN_OP = 11;
 	int st;
-
-	instruction_t op[LEN_OP];
+	stack_t *stack;
+	instruction_t op[11];
 
 	line = NULL;
 	len = 0;
@@ -27,20 +28,20 @@ int main(int argc, char *argv[])
 	fd = fopen(argv[1], "r");
 	check_file_status(fd, argv[1]);
 	line_number = 0;
+	stack = NULL;
 
 	while ((nread = getline(&line, &len, fd)) != -1)
 	{
 		line_number++;
-		//tokenization
-		token = tokenization(line, fd);
-		//Command valid?
+		tokenization(line, fd);
 		st = search_command(token[0], op, LEN_OP);
 		if (st == -1)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token[0]);
 			exit_free(token, line, fd);
 		}
-		//argument valid?
+
+		op[st].f(&stack, line_number);
 		free_2d(token);
 	}
 	free(line);

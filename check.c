@@ -1,4 +1,5 @@
 #include "main.h"
+#include "global.h"
 
 /**
  * check_num_args - check number of arguments

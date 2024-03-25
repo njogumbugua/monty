@@ -1,4 +1,5 @@
 #include "main.h"
+#include "global.h"
 
 /**
  * tokenization - tokenize line into 2d array
@@ -9,7 +10,6 @@
 
 char **tokenization(char *line, FILE *fd)
 {
-	char **token;
 	char *word;
 	int count;
 	int i;
@@ -19,7 +19,7 @@ char **tokenization(char *line, FILE *fd)
 	if (strcmp(word, "push") == 0)
 		count = 1;
 
-	token = malloc(sizeof(char *) * (count + 2));
+	initGlobal(count);
 	if (token == NULL)
 	{
 		free(line);
@@ -66,11 +66,9 @@ int search_command(char *command, instruction_t *op, const int len)
 	for (i = 0; i < len; i++)
 	{
 		if (strcmp(command, op[i].opcode) == 0)
-      init_op(op);
-			return (1);
+			return (i);
 		if (strcmp(command, "") == 0)
-      init_op(op);
-			return (1);
+			return (i);
 	}
 	return (-1);
 }
