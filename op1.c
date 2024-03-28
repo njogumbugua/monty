@@ -129,7 +129,7 @@ int swap(stack_t **stack, unsigned int l)
 		(*stack)->next->n = temp;
 	} else
 	{
-		fprintf(stderr, "L%u: can't swap, stack has less than two elements\n", l);
+		fprintf(stderr, "L%u: can't swap, stack too short\n", l);
 		return (-1);
 	}
 	return (1);

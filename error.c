@@ -34,7 +34,6 @@ void free_2d(char **token)
 /**
  * exit_free - exit program and free memory
  * @token: 2d array
- * @line: line read by getline
  * @fd: file descriptor
  * Return: None
  */
