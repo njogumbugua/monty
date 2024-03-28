@@ -35,10 +35,17 @@ int main(int argc, char *argv[])
 		if (st == -1)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token[0]);
+			free_stack(&stack);
 			exit_free(token, fd);
 		}
-		op[st].f(&stack, line_number);
-		free_2d(token);
+		if (op[st].f(&stack, line_number) == 1)
+		{
+			free_2d(token);
+		} else
+		{
+			free_stack(&stack);
+			exit_free(token, fd);
+		}
 	}
 	free_stack(&stack);
 	fclose(fd);
