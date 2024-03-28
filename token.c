@@ -68,7 +68,7 @@ int search_command(char *command, instruction_t *op, const int len)
 		if (strcmp(command, op[i].opcode) == 0)
 			return (i);
 		if (strcmp(command, "") == 0)
-			return (i);
+			return (11);
 	}
 	return (-1);
 }

@@ -15,10 +15,10 @@ int main(int argc, char *argv[])
 	unsigned int line_number;
 	char *nread;
 	char str[100];
-	const int LEN_OP = 11;
+	const int LEN_OP = 12;
 	int st;
 	stack_t *stack;
-	instruction_t op[11];
+	instruction_t op[12];
 
 	init_op(op);
 	check_num_args(argc);
