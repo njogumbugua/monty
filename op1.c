@@ -27,17 +27,22 @@ int push(stack_t **stack, unsigned int line_number)
 		perror("Error allocating memory");
 		return (-1);
 	}
-
-	if (value == 0)
+	if (check_zero(value_str))
 	{
-		free(new_node);
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		return (-1);
+		value = 0;
+	} else
+	{
+		value = atoi(value_str);
+		if (value == 0)
+		{
+			free(new_node);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			return (-1);
+		}
 	}
 	new_node->prev = NULL;
 	new_node->n = value;
 	new_node->next = *stack;
-
 	if (*stack)
 	{
 		(*stack)->prev = new_node;

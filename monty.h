@@ -43,6 +43,7 @@ typedef struct instruction_s
 
 void initGlobal(int count);
 void check_num_args(int argc);
+int check_zero(char *str);
 void check_file_status(FILE *fd, char *file_name);
 char *get_name(char *path);
 char **tokenization(char *line, FILE *fd);

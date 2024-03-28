@@ -1,6 +1,20 @@
 #include "monty.h"
 #include "global.h"
 
+int check_zero(char *str)
+{
+	if (str[0] == '-')
+	{
+		if (str[1] == '0')
+		{
+			if (str[2] == '\0')
+				return (1);
+		}
+	}
+	if (str[0] == '0' && str[1] == '\0')
+		return (1);
+	return (0);
+}
 /**
  * check_num_args - check number of arguments
  * @argc: number of arguments
