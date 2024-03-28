@@ -1,6 +1,12 @@
 #include "monty.h"
 #include "global.h"
 
+/**
+ * check_zero - check if string is zero
+ * @str: string to be checked
+ * Return: 1 on Success
+ */
+
 int check_zero(char *str)
 {
 	if (str[0] == '-')
@@ -15,6 +21,7 @@ int check_zero(char *str)
 		return (1);
 	return (0);
 }
+
 /**
  * check_num_args - check number of arguments
  * @argc: number of arguments
